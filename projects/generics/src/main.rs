@@ -1,4 +1,4 @@
-use std::fmt::Display;
+//use std::fmt::Display;
 
 
 fn main() {
@@ -78,15 +78,13 @@ fn main() {
     //Fixing largest function with trait bounds
 
     let number_list = vec![34, 50, 25,100, 65];
+    let result = largest(&number_list);
+    println!("The largest number is {}", result);
 
+    let char_list = vec!['y', 'm', 'a', 'q'];
 
-     let result = largest(&number_list);
-     println!("The largest number is {}", result);
- 
-     let char_list = vec!['y', 'm', 'a', 'q'];
- 
-     let result = largest(&char_list);
-     println!("The largest char is {}", result);
+    let result = largest(&char_list);
+    println!("The largest char is {}", result);
 
 
      //----------------------------------------------
@@ -94,26 +92,26 @@ fn main() {
 }
 
 
-struct Pair<T> {
-    x: T,
-    y: T
-}
+// struct Pair<T> {
+//     x: T,
+//     y: T
+// }
 
-impl <T> Pair<T> {
-    fn new(x: T, y: T) -> Self {
-        Self {x, y}
-    }
-}
+// impl <T> Pair<T> {
+//     fn new(x: T, y: T) -> Self {
+//         Self {x, y}
+//     }
+// }
 
-impl <T: Display + PartialOrd> Pair<T> {
-    fn cmp_display(&self) {
-        if self.x >= self.y {
-            println!("The largest member is x = {}", self.x);
-        } else {
-            println!("The largest member is y = {}", self.y);
-        }        
-    }
-}
+// impl <T: Display + PartialOrd> Pair<T> {
+//     fn cmp_display(&self) {
+//         if self.x >= self.y {
+//             println!("The largest member is x = {}", self.x);
+//         } else {
+//             println!("The largest member is y = {}", self.y);
+//         }        
+//     }
+// }
 
 
 //---------------------------------------------
