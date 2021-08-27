@@ -1,3 +1,6 @@
+use std::fmt::Display;
+
+
 fn main() {
 
 
@@ -71,13 +74,98 @@ fn main() {
 
 
     //------------------------------------------
+
+    //Fixing largest function with trait bounds
+
+    let number_list = vec![34, 50, 25,100, 65];
+
+
+     let result = largest(&number_list);
+     println!("The largest number is {}", result);
+ 
+     let char_list = vec!['y', 'm', 'a', 'q'];
+ 
+     let result = largest(&char_list);
+     println!("The largest char is {}", result);
+
+
+     //----------------------------------------------
+
 }
 
 
-fn some_function<T: Display + Clone, U: Clone + Debug>(t: &T, u: &U) -> i32 {
-
+struct Pair<T> {
+    x: T,
+    y: T
 }
 
+impl <T> Pair<T> {
+    fn new(x: T, y: T) -> Self {
+        Self {x, y}
+    }
+}
+
+impl <T: Display + PartialOrd> Pair<T> {
+    fn cmp_display(&self) {
+        if self.x >= self.y {
+            println!("The largest member is x = {}", self.x);
+        } else {
+            println!("The largest member is y = {}", self.y);
+        }        
+    }
+}
+
+
+//---------------------------------------------
+
+// fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
+//     let mut largest = list[0];
+
+//     for &item in list {
+//         if item > largest {
+//             largest = item;
+//         }
+//     }
+
+//     largest
+// }
+
+fn largest<T: PartialOrd>(list: &[T]) -> &T {
+        let mut largest = &list[0];
+    
+        for item in list {
+            if item > largest {
+                largest = item;
+            }
+        }
+    
+        largest
+    }
+    
+
+//Clearer Trait bounds
+//long hand
+// fn some_function<T: Display + Clone, U: Clone + Debug>(t: &T, u: &U) -> i32 {
+
+// }
+
+//shorthand
+// fn some_function<T, U>(t: &T, u: &U) -> i32
+//     where T: Display + Clone,
+//           U: Clone + Debug
+//           {
+//               3
+//           }
+
+
+// fn returns_summarization() -> impl Summary {
+//     Tweet {
+//         username: String::from("horse_ebooks"),
+//         content: String::from("people"),
+//         reply: false,
+//         retweet: false
+//     }
+// }
 
 
 //impl trait allows us to call the summarize trait method on any type that implement the Summary trait as a parameter
@@ -93,63 +181,63 @@ fn some_function<T: Display + Clone, U: Clone + Debug>(t: &T, u: &U) -> i32 {
 // }
 
 //can require two traits at the same time
-pub fn notify(item: &(impl Summary + Display)) {
-    println!("Breaking news! {}", item.summarize())
-}
+// pub fn notify(item: &(impl Summary + Display)) {
+//     println!("Breaking news! {}", item.summarize())
+// }
 
-pub trait Display {
+// pub trait Display {
 
-    fn display(&self) -> String;
-}
+//     fn display(&self) -> String;
+// }
 
-pub trait Debug {
+// pub trait Debug {
 
-}
+// }
 
-pub trait Summary {
+// pub trait Summary {
 
-    fn summarize_author(&self) -> String;
+//     fn summarize_author(&self) -> String;
 
-    fn summarize(&self) -> String {
-        format!("(Read more from {}...)", self.summarize_author())
-    }
-
-
-
-}
+//     fn summarize(&self) -> String {
+//         format!("(Read more from {}...)", self.summarize_author())
+//     }
 
 
-pub struct NewsArticle {
-    pub headline: String,
-    pub location: String,
-    pub author: String,
-    pub content: String
-}
 
-impl Summary for NewsArticle {
-    // fn summarize(&self) -> String {
-    //     format!("{}, by {} ({})", self.headline, self.author, self.location)
-    fn summarize_author(&self) -> String {
-        format!("@{}", self.author)
-    }
-    }
+// }
 
-pub struct Tweet {
-    pub username: String,
-    pub content: String,
-    pub reply: bool,
-    pub retweet: bool,
-}
 
-impl Summary for Tweet {
-    fn summarize(&self) -> String {
-        format!("{}: {}", self.username, self.content)
-    }
+// pub struct NewsArticle {
+//     pub headline: String,
+//     pub location: String,
+//     pub author: String,
+//     pub content: String
+// }
 
-    fn summarize_author(&self) -> String {
-        format!("@{}", self.username)
-    }
-}
+// impl Summary for NewsArticle {
+//     // fn summarize(&self) -> String {
+//     //     format!("{}, by {} ({})", self.headline, self.author, self.location)
+//     fn summarize_author(&self) -> String {
+//         format!("@{}", self.author)
+//     }
+//     }
+
+// pub struct Tweet {
+//     pub username: String,
+//     pub content: String,
+//     pub reply: bool,
+//     pub retweet: bool,
+// }
+
+// impl Summary for Tweet {
+//     fn summarize(&self) -> String {
+//         format!("{}: {}", self.username, self.content)
+//     }
+
+//     fn summarize_author(&self) -> String {
+//         format!("@{}", self.username)
+//     }
+// }
 
 
 // struct Point<T> {
@@ -185,27 +273,3 @@ impl Summary for Tweet {
 //     }
 // }
 
-// fn largest(list: &[i32]) -> i32 {
-//     let mut largest = list[0];
-
-//     for &item in list {
-//         if item > largest {
-//             largest = item;
-//         }
-//     }
-
-//     largest
-// }
-
-// fn largest<T>(list: &[T]) -> T {
-//     let mut largest = list[0];
-
-
-//     for &item in list {
-//         if item > largest {
-//             largest = item;
-//         }
-//     }
-
-//     largest
-// }
