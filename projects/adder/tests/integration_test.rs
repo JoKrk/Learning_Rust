@@ -1,6 +1,6 @@
 use adder;
 
-mod common
+mod common;
 
 #[test]
 fn it_adds_two() {
