@@ -62,6 +62,17 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 //     results
 // }
 
+///Returns lines from a string input that contain occurences of another string
+/// 
+/// 
+/// # Examples
+/// ```
+/// let results = search(String::new("the"), String::new(
+/// "The brown cow
+/// Has a large spot
+/// On the back of his head"
+/// ));
+/// ```
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 
     contents
