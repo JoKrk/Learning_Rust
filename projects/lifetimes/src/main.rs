@@ -1,4 +1,4 @@
-use std::fmt::Display;
+// use std::fmt::Display;
 
 fn main() {
 
@@ -38,7 +38,7 @@ fn main() {
 
     //----------------------------------------------
 
-    let s: &'static str = "I have a static lifetime.";
+    // let s: &'static str = "I have a static lifetime.";
 
     //--------------------------------------------
 
@@ -46,21 +46,21 @@ fn main() {
 
 }
 
-fn longest_with_an_announcement<'a, T>(
-    x: &'a str,
-    y: &'a str,
-    ann: T
-) -> &'a str
-where
-    T:Display,
-    {
-        println!("Announcement! {}", ann);
-        if x.len() > y.len() {
-            x
-        } else {
-            y
-        }
-    }
+// fn longest_with_an_announcement<'a, T>(
+//     x: &'a str,
+//     y: &'a str,
+//     ann: T
+// ) -> &'a str
+// where
+//     T:Display,
+//     {
+//         println!("Announcement! {}", ann);
+//         if x.len() > y.len() {
+//             x
+//         } else {
+//             y
+//         }
+//     }
 
 
 
